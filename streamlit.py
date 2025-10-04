@@ -1,6 +1,14 @@
 import streamlit as st
 from fastai.vision.all import *
 
+st.title("Pet Breed Classifier")
+st.text("Built by Joel Suwanto")
+
+#Homework:
+#Load the pickle file
+#make a new predict function
+#In the prediction function, create a new PILImage
+#Make a new file_uploader (exact same as previous project)
 
 def extract_breed_name(file_name):
     p = Path(file_name)
@@ -17,16 +25,12 @@ def extract_breed_name(file_name):
 
 breed_model = load_learner("cat_dog_breed_model.pkl")
 
-
 def predict(image):
     img = PILImage.create(image)
     pred_class, pred_idx, outputs = breed_model.predict(img)
     return pred_class
 
 
-# Streamlit UI
-st.title("Pet Breed Classifier")
-st.text("Built by Joel Suwanto")
 
 uploaded_file = st.file_uploader("Upload an image...", type=["jpg", "png", "jpeg"])
 
@@ -34,7 +38,12 @@ if uploaded_file is not None:
     st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
 
     prediction = predict(uploaded_file)
+    #st.write(prediction)
     st.subheader(f"Predicted Breed: {prediction}")
 
-# Footer
-st.text("Built with Streamlit and Fastai")
+st.text("Built with Streamlit and FastAI")
+
+
+
+
+
